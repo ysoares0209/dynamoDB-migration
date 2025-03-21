@@ -32,7 +32,7 @@ def dump_to_s3(items):
             Body=json.dumps(items),
             ContentType="application/json"
         )
-        print(f"Uploaded chunk to s3://{BUCKET_NAME}/{key}")
+        print(f"segment {SEGMENT}/{TOTAL_SEGMENTS - 1} - Uploaded chunk to s3://{BUCKET_NAME}/{key} | items: {len(items)}")
     except (BotoCoreError, ClientError) as e:
         print(f"Failed to upload to S3: {str(e)}")
 
@@ -42,6 +42,7 @@ def scan_segment():
     last_evaluated_key = None
 
     while True:
+        print(f"Scanning segment {SEGMENT}/{TOTAL_SEGMENTS - 1} - current items: {scanned_count}")
         scan_kwargs = {
             "TableName": TABLE_NAME,
             "Segment": SEGMENT,
@@ -67,6 +68,7 @@ def scan_segment():
 
         last_evaluated_key = response.get("LastEvaluatedKey")
         if not last_evaluated_key:
+            print(f"Segment {SEGMENT}/{TOTAL_SEGMENTS - 1} - Done scanning")
             break
 
     # Final flush

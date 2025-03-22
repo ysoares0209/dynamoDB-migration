@@ -10,6 +10,7 @@ export const handler = async () => {
   const SECURITY_GROUP = process.env.SECURITY_GROUP!;
   const BUCKET_NAME = process.env.BUCKET_NAME!;
   const TABLE_NAME = process.env.TABLE_NAME!;
+  const REGION = process.env.REGION!;
   const TOTAL_SEGMENTS = parseInt(process.env.TOTAL_SEGMENTS!);
 
   if (!TASK_DEFINITION_ARN) throw new Error("TASK_DEFINITION_ARN is required");
@@ -19,6 +20,7 @@ export const handler = async () => {
   if (!SECURITY_GROUP) throw new Error("SECURITY_GROUP is required");
   if (!BUCKET_NAME) throw new Error("BUCKET_NAME is required");
   if (!TABLE_NAME) throw new Error("TABLE_NAME is required");
+  if (!REGION) throw new Error("REGION is required");
   if (!TOTAL_SEGMENTS) throw new Error("TOTAL_SEGMENTS is required");
 
   console.log(`${TOTAL_SEGMENTS} tasks will be started`);
@@ -43,6 +45,7 @@ export const handler = async () => {
             environment: [
               { name: "BUCKET_NAME", value: BUCKET_NAME },
               { name: "TABLE_NAME", value: TABLE_NAME },
+              { name: "REGION", value: REGION },
               { name: "TOTAL_SEGMENTS", value: TOTAL_SEGMENTS.toString() },
               { name: "SEGMENT", value: segment.toString() },
             ],

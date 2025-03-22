@@ -6,7 +6,7 @@ import json
 from botocore.exceptions import BotoCoreError, ClientError
 
 # Validate required environment variables
-REQUIRED_ENVS = ["BUCKET_NAME", "TABLE_NAME", "TOTAL_SEGMENTS", "SEGMENT"]
+REQUIRED_ENVS = ["BUCKET_NAME", "TABLE_NAME", "REGION", "TOTAL_SEGMENTS", "SEGMENT"]
 
 missing_envs = [env for env in REQUIRED_ENVS if not os.getenv(env)]
 if missing_envs:
@@ -16,11 +16,12 @@ if missing_envs:
 # Read environment variables
 BUCKET_NAME = os.getenv("BUCKET_NAME")
 TABLE_NAME = os.getenv("TABLE_NAME")
+REGION = os.getenv("REGION")
 TOTAL_SEGMENTS = int(os.getenv("TOTAL_SEGMENTS"))
 SEGMENT = int(os.getenv("SEGMENT"))
 
 # AWS clients
-dynamodb = boto3.client("dynamodb")
+dynamodb = boto3.client("dynamodb", region_name=REGION)
 s3 = boto3.client("s3")
 
 def dump_to_s3(items):

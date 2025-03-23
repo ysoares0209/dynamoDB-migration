@@ -56,7 +56,7 @@ This project provides an infrastructure-as-code solution for DynamoDB data migra
 2. Review ECS machine settings in `lib/constructors/Fargate.ts` (CPU and memory)
 3. Deploy the stack:
    ```bash
-  npx cdk deploy
+   cdk deploy
    ```
 4. First manually trigger the export job lambda on console (A test event with any values will do)
 5. Monitor the export job in AWS Console by checking ECS machines status, cloudwatch

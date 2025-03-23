@@ -58,7 +58,7 @@ export const handler = async () => {
 
   console.log(`Found ${allKeys.length} keys in s3://${BUCKET_NAME}/${S3_PREFIX}`);
 
-  const batches = chunkArray(allKeys, 5);
+  const batches = chunkArray(allKeys, 3);
 
   const taskPromises = batches.map((batch) => {
     const command = new RunTaskCommand({

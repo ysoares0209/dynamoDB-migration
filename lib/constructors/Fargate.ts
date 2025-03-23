@@ -25,7 +25,7 @@ export default class Fargate extends Construct {
 
     // CONSTANTS
     const DEFAULT_CPU = 2048;
-    const DEFAULT_MEMORY_LIMIT_MIB = 4096;
+    const DEFAULT_MEMORY_LIMIT_MIB = 5120;
 
     this.taskDefinition = new FargateTaskDefinition(this, "TaskDef", {
       cpu: DEFAULT_CPU,
